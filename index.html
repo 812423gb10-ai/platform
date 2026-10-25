@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Platform v2</title>
+    <style>
+        :root {
+            --bg-color: #0f0f1a;
+            --text-color: #ffffff;
+            --accent-color: #00d4ff;
+            --card-bg: #1a1a2e;
+            --card-hover: #252545;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* 画面切り替え */
+        .screen {
+            display: none;
+            min-height: 100vh;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* 1. タイトル画面 */
+        #title-screen {
+            justify-content: center;
+            cursor: pointer;
+            text-align: center;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+        }
+
+        #title-screen h1 {
+            font-size: clamp(3rem, 10vw, 5rem);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px var(--accent-color);
+            letter-spacing: 5px;
+        }
+
+        #title-screen p {
+            font-size: 1.2rem;
+            color: #8899aa;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* 2. タイトル集画面 */
+        #list-screen {
+            padding: 60px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        #list-screen h2 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .hint {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 0.9rem;
+        }
+
+        .game-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+        }
+
+        .game-card {
+            display: flex;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .game-card:hover {
+            transform: scale(1.02);
+            background-color: var(--card-hover);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .game-img-container {
+            width: 280px;
+            height: 180px;
+            flex-shrink: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .game-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .game-card:hover .game-img-container img {
+            transform: scale(1.1);
+        }
+
+        .game-info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .game-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: var(--accent-color);
+        }
+
+        .game-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #b0b0c0;
+        }
+
+        /* レスポンシブ設定 */
+        @media (max-width: 700px) {
+            .game-card {
+                flex-direction: column;
+            }
+            .game-img-container {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="title-screen" class="screen active">
+        <h1>ARCADE BOX</h1>
+        <p>PRESS START (Click / Space / Enter)</p>
+    </div>
+
+    <div id="list-screen" class="screen">
+        <h2>SELECT GAME</h2>
+        <p class="hint">ESCキーでタイトルに戻る</p>
+        
+        <div class="game-list">
+            <a href="https://812423gb10-ai.github.io/Photon-Geyser/" class="game-card">
+                <div class="game-img-container">
+                    <img src="Photon_title.png" alt="Photon Geyser">
+                </div>
+                <div class="game-info">
+                    <div class="game-title">Photon Geyser</div>
+                    <div class="game-desc">光の反射や屈折の性質を巧みに操り、ターゲットを照らすパズルゲーム。物理的な光の挙動を学びながら楽しめます。</div>
+                </div>
+            </a>
+
+            <a href="https://812423gb10-ai.github.io/thermo_v2/" class="game-card">
+                <div class="game-img-container">
+                    <img src="thermo_title.png" alt="Re-PRESSURE">
+                </div>
+                <div class="game-info">
+                    <div class="game-title">Re-PRESSURE</div>
+                    <div class="game-desc">熱力学の物理演算を搭載したシミュレーションゲーム。10秒以内に目標圧力を再現せよ!</div>
+                </div>
+            </a>
+
+            <a href="https://abehiroshi.la.coocan.jp/" class="game-card">
+                <div class="game-img-container">
+                    <img src="just_a_moment.png" alt="choi_machi">
+                </div>
+                <div class="game-info">
+                    <div class="game-title">開発中</div>
+                    <div class="game-desc">ちょっと待っててね！</div>
+                </div>
+            </a>
+
+            <a href="https://abehiroshi.la.coocan.jp/" class="game-card">
+                <div class="game-img-container">
+                    <img src="just_a_moment.png" alt="choi_machi">
+                </div>
+                <div class="game-info">
+                    <div class="game-title">開発中</div>
+                    <div class="game-desc">ちょっと待っててね！</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const titleScreen = document.getElementById('title-screen');
+        const listScreen = document.getElementById('list-screen');
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // タイトル画面からリスト画面へ
+        titleScreen.addEventListener('click', () => showScreen('list-screen'));
+
+        window.addEventListener('keydown', (e) => {
+            if (titleScreen.classList.contains('active')) {
+                if (e.code === 'Space' || e.code === 'Enter') {
+                    e.preventDefault();
+                    showScreen('list-screen');
+                }
+            } else if (listScreen.classList.contains('active')) {
+                if (e.code === 'Escape') {
+                    showScreen('title-screen');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
